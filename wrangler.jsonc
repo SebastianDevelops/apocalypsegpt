@@ -7,8 +7,7 @@
   "name": "apocalypsegpt",
   "main": "src/index.ts",
   "compatibility_flags": ["nodejs_compat"],
-  "compatibility_date": "2024-09-23",
-  "nodejs_compat": true,
+  "compatibility_date": "2025-05-04",
   "migrations": [
     {
       "new_sqlite_classes": ["MyMCP"],

@@ -80,3 +80,4 @@ jspm_packages/
 .dev.vars
 .wrangler/
 .dev.vars.example
+.dev.vars.example
