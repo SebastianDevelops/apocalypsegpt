@@ -5,7 +5,6 @@ import type {
 import { Hono } from "hono";
 import * as jose from "jose";
 import {
-	type AccessToken,
 	type AuthenticationResponse,
 	WorkOS,
 } from "@workos-inc/node";
@@ -65,19 +64,17 @@ app.get("/callback", async (c) => {
 	}
 
 	const { accessToken, organizationId, refreshToken, user } = response;
-	const { permissions = [] } = jose.decodeJwt<AccessToken>(accessToken);
 
 	const { redirectTo } = await c.env.OAUTH_PROVIDER.completeAuthorization({
 		request: oauthReqInfo,
 		userId: user.id,
 		metadata: {},
-		scope: permissions,
+		scope: [],
 
 		// This will be available on this.props inside MyMCP
 		props: {
 			accessToken,
 			organizationId,
-			permissions,
 			refreshToken,
 			user,
 		} satisfies Props,
