@@ -3,7 +3,6 @@ import type {
 	OAuthHelpers,
 } from "@cloudflare/workers-oauth-provider";
 import { Hono } from "hono";
-import * as jose from "jose";
 import {
 	type AuthenticationResponse,
 	WorkOS,
