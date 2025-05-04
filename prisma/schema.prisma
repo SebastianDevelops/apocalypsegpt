@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or mysql, sqlite
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @default(uuid())
+  auth0Sub    String    @unique // Subject claim from Auth0 JWT
+  email       String?   @unique
+  attributes  Json?     // Game-specific attributes
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  storyState  StoryState?
+  auditLogs   AuditLog[]
+}
+
+model StoryState {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  memory      Json?    // AI memory object
+  inventory   Json?    // Player inventory
+  currentQuest String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Audit log for permission/policy changes
+model AuditLog {
+  id          String   @id @default(uuid())
+  timestamp   DateTime @default(now())
+  userId      String?  // User affected (if applicable)
+  user        User?    @relation(fields: [userId], references: [id])
+  actor       String   // Who performed the action (e.g., "AI", "System")
+  action      String   // e.g., "permissions/grant", "policy/createOrUpdate"
+  details     Json     // Parameters of the action
+  success     Boolean
+  errorMessage String?
+}

@@ -6,7 +6,7 @@ import { AuthkitHandler } from "./authkit-handler";
 import type { Props } from "./props";
 
 import { Permit } from "permitio";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
 export class MyMCP extends McpAgent<Env, unknown, Props> {
