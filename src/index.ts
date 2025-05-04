@@ -13,8 +13,8 @@ export class MyMCP extends McpAgent<Env, unknown, Props> {
 	prisma = new PrismaClient().$extends(withAccelerate());
 	
 	permit = new Permit({
-		pdp: process.env.PERMIT_PDP_URL!,
-		token: process.env.PERMIT_API_KEY!,
+		pdp: this.env.PERMIT_PDP_URL!,
+		token: this.env.PERMIT_API_KEY!,
 	});
 
   server = new McpServer({
